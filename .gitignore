@@ -1,3 +1,7 @@
+# Proyect things
+instances/
+output_problems/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
