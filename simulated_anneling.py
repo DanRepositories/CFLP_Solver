@@ -3,7 +3,7 @@ import math
 import numpy as np
 
 class SimulatedAnneling():
-    def __init__(self, function, generate_initial, next_step, D, T0, Tmin, alpha):
+    def __init__(self, function, generate_initial, next_step, D, T0, Tmin, alpha, max_iter):
         self.function = function
         self.generate_initial_solution = generate_initial
         self.next_step = next_step
@@ -15,6 +15,7 @@ class SimulatedAnneling():
         self.best = np.array([])
         self.F_min = 0          # Fitness of best solution
         self.D = D
+        self.max_iter = max_iter
 
     def update_temp(self, current_temp):
         new_temp = self.alpha * current_temp
@@ -31,7 +32,8 @@ class SimulatedAnneling():
         self.F_min = self.Xfitness
 
         t = self.T0
-        while t > self.Tmin:
+        current_iter = 0
+        while (t > self.Tmin) and (current_iter < self.max_iter):
             # Generate a new solution from the current X solution
             newX = self.next_step(self.X)
             newX_fitness = self.function(newX)
@@ -53,6 +55,7 @@ class SimulatedAnneling():
                 self.F_min = self.Xfitness
 
             t = self.update_temp(t)
+            current_iter += 1
 
         return self.best, self.F_min
 

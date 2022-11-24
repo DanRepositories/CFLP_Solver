@@ -71,7 +71,7 @@ t0 = 200
 tmin = 5
 alpha = 0.9
 
-sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha)
+sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha, cnf['max_iter'])
 
 if check_feasibility([1] * n, Q, D, relaxed=cnf['relaxed']):
 	print('\n',sa.execute())
