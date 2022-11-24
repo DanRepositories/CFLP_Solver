@@ -1,6 +1,5 @@
 option solver gurobi;
 option solver_msg 0;
-#option presolve_warnings 0;
 option show_presolve_messages 0;
 option display_round 5;
 option solution_round 5;

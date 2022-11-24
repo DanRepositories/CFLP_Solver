@@ -14,13 +14,15 @@ def check_feasibility(x, capacity, demands, relaxed=False):
 		return sum_demands <= sum_capacities and max_demands <= max_capacity
 
 def load_config(filename):
-    cnf = dict()
-    
-    with open(filename) as file:
-        cnf['ampl_install_folder'] = file.readline().strip()
-        cnf['instance_folder'] = file.readline().strip()
-        cnf['instance_file'] = file.readline().strip()
-        cnf['output_folder'] = file.readline().strip()
-        cnf['ampl_model'] = file.readline().strip()
+	cnf = dict()
+	
+	with open(filename) as file:
+		cnf['ampl_install_folder'] = file.readline().strip()
+		cnf['instance_folder'] = file.readline().strip()
+		cnf['instance_file'] = file.readline().strip()
+		cnf['output_folder'] = file.readline().strip()
+		cnf['ampl_model'] = file.readline().strip()
+		cnf['max_iter'] = int(file.readline().strip())
+		cnf['relaxed'] = int(file.readline().strip()) == 1
 
-    return cnf
+	return cnf

@@ -73,7 +73,7 @@ alpha = 0.9
 
 sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha)
 
-if check_feasibility([1] * n, Q, D):
+if check_feasibility([1] * n, Q, D, relaxed=cnf['relaxed']):
 	print('\n',sa.execute())
 else:
 	print("Problema no factible")
