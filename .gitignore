@@ -1,6 +1,7 @@
 # Proyect things
 instances/
 output_problems/
+config.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
