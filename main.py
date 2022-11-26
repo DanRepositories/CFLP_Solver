@@ -32,13 +32,19 @@ def get_next_step(current_solution):
 		for index in indexes_to_swap:
 			new_solution[index] = 1 ^ new_solution[index]
 
-		# Se valida factibilidad de la neuva solucion
+		# Se valida factibilidad de la nueva solución
 		if check_feasibility(new_solution, Q, D, cnf['relaxed']):
 			break
 
 	return new_solution
 
 def objective_function(warehouses):
+	"""
+	Encargada de calcular la función objetivo del problema CFLP. Utilizando AMPL para el problema de asignacion
+	y la suma de los costos asociados a abrir los centros.
+	@param warehouse: vector binario con los centros abiertos
+	@returns fitness_cflp_problem: resultado de la funcion objetivo evaluada del CFLP
+	"""
 	# Se establecen los centro abiertos del problema de asignacion y se resuelve
 	x.set_values(warehouses)
 	ampl.solve()
@@ -57,7 +63,7 @@ def objective_function(warehouses):
 # Se carga las configuraciones iniciales
 cnf = load_config("config.csv")
 
-## Se parsea el problema original a un archivo .dat para ser leido por AMPL
+# Se parsea el problema original a un archivo .dat para ser leido por AMPL
 file_data = f'{cnf["instance_folder"]}/{cnf["instance_file"]}.txt'
 file_parsed = f'{cnf["output_folder"]}/{cnf["instance_file"]}.dat'
 
@@ -87,6 +93,7 @@ alpha = 0.95
 
 sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha, cnf['max_iter'])
 
+# Se válida la factibilidad del problema
 if check_feasibility([1] * n, Q, D, relaxed=cnf['relaxed']):
 	print('\n',sa.execute())
 else:
