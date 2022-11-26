@@ -1,6 +1,7 @@
 from amplpy import AMPL, Environment, DataFrame
 import random
 from parseProblem import Parser
+import statistics
 from simulated_anneling import SimulatedAnneling
 from my_utility import check_feasibility, load_config
 
@@ -94,7 +95,10 @@ alpha = 0.95
 sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha, cnf['max_iter'])
 
 # Se válida la factibilidad del problema
+vector=[]
 if check_feasibility([1] * n, Q, D, relaxed=cnf['relaxed']):
-	print('\n',sa.execute())
+	for i in range(10):
+		vector.append(sa.execute()[1])
 else:
 	print("Problema no factible")
+print("\n Media: ",statistics.mean(vector),"\n Desviación standar",statistics.stdev(vector))
