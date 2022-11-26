@@ -14,15 +14,18 @@ def generate_random_solution(n):
 	return warehouses
 
 def get_next_step(current_solution):
-        new_solution = current_solution.copy()
+	new_solution = current_solution.copy()
 
-        # Take 2 random indexes
-        indexes_to_swap = random.sample(list(range(n)), 2)
-        idx1, idx2 = indexes_to_swap[0], indexes_to_swap[1]
+	while True:
+		# Take 2 random indexes
+		indexes_to_swap = random.sample(list(range(n)), 2)
+		
+		for index in indexes_to_swap:
+			new_solution[index] = 1 ^ new_solution[index]
 
-        # Swap the values from the indexes
-        new_solution[idx1], new_solution[idx2] = new_solution[idx2], new_solution[idx1]
-        return new_solution
+		if check_feasibility(new_solution, Q, D, cnf['relaxed']):
+			break
+	return new_solution
 
 def objective_function(warehouses):
 	# Se establecen los centro abiertos del problema de asignacion y se resuelve
@@ -31,7 +34,7 @@ def objective_function(warehouses):
 
 	# Se obtiene el fitness del problema de asignacion
 	fitness_assignment_problem = float(ampl.get_current_objective().value())
-	
+
 	# Se obtiene el costo de los centros que estan abiertos
 	cost_open_warehouses = sum([F[i] * warehouses[i] for i in range(n)])
 
@@ -67,9 +70,9 @@ ampl.read(cnf["ampl_model"])
 ampl.read_data(file_parsed)
 x = ampl.get_parameter('X')
 
-t0 = 200
+t0 = 2000
 tmin = 5
-alpha = 0.9
+alpha = 0.95
 
 sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_step, n, t0, tmin, alpha, cnf['max_iter'])
 

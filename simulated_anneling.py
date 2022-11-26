@@ -31,9 +31,13 @@ class SimulatedAnneling():
         self.best = self.X.copy()
         self.F_min = self.Xfitness
 
+
         t = self.T0
         current_iter = 0
-        while (t > self.Tmin) and (current_iter < self.max_iter):
+        while (current_iter < self.max_iter):
+            if current_iter%25 == 0: 
+                print("\n", current_iter, self.F_min)
+
             # Generate a new solution from the current X solution
             newX = self.next_step(self.X)
             newX_fitness = self.function(newX)
@@ -55,7 +59,11 @@ class SimulatedAnneling():
                 self.F_min = self.Xfitness
 
             t = self.update_temp(t)
+            if t < self.Tmin:
+                t = self.Tmin
+
             current_iter += 1
+
 
         return self.best, self.F_min
 
