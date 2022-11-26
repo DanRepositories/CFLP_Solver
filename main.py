@@ -5,7 +5,11 @@ from simulated_anneling import SimulatedAnneling
 from my_utility import check_feasibility, load_config
 
 def generate_random_solution(n):
-	# Generacion del nuevo conjunto de centros abiertos
+	"""
+	Funcion encargada de generar una solucion inicial aleatoria de centros abiertos asociados al vector X
+	@param n: número de centros
+	@returns warehouses: vector binario con los centros abiertos
+	"""
 	warehouses = [0] * n
 	for i in range(n):
 		if random.random() < 0.6:
@@ -14,17 +18,24 @@ def generate_random_solution(n):
 	return warehouses
 
 def get_next_step(current_solution):
+	"""
+	Encargada de generar una nueva solución del vector X con los centros abiertos aplicando swap a sus indices
+	@param current_solution: solución actual del problema (X)
+	@returns new_solution: nueva solución del vector X
+	"""
 	new_solution = current_solution.copy()
 
 	while True:
-		# Take 2 random indexes
+		# Se toman 2 indices de manera aleatoria
 		indexes_to_swap = random.sample(list(range(n)), 2)
 		
 		for index in indexes_to_swap:
 			new_solution[index] = 1 ^ new_solution[index]
 
+		# Se valida factibilidad de la neuva solucion
 		if check_feasibility(new_solution, Q, D, cnf['relaxed']):
 			break
+
 	return new_solution
 
 def objective_function(warehouses):

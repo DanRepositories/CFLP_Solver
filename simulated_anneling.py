@@ -1,7 +1,6 @@
 import random
 import math
 import numpy as np
-
 class SimulatedAnneling():
     def __init__(self, function, generate_initial, next_step, D, T0, Tmin, alpha, max_iter):
         """
@@ -23,7 +22,7 @@ class SimulatedAnneling():
         self.Tmin = Tmin
         self.alpha = alpha
         self.X = np.array([])
-        self.Xfitness = 0       # Fitness dela solución X actual
+        self.Xfitness = 0       # Fitness de la solución X actual
         self.best = np.array([])
         self.F_min = 0          # Fitness de la mejor solución
         self.D = D
@@ -63,9 +62,9 @@ class SimulatedAnneling():
         self.F_min = self.Xfitness
 
         fitness_array = []
-
         t = self.T0
         current_iter = 0
+
         while (current_iter < self.max_iter):
             fitness_array.append(self.F_min)
             if current_iter%25 == 0: 
@@ -76,6 +75,7 @@ class SimulatedAnneling():
         
             delta_fitness = newX_fitness - self.Xfitness
 
+            # Actualizamos la solución actual del problema
             if delta_fitness < 0:
                 self.X = newX.copy()
                 self.Xfitness = newX_fitness
@@ -90,6 +90,7 @@ class SimulatedAnneling():
                 self.best = self.X.copy()
                 self.F_min = self.Xfitness
 
+            # Actualizamos temperatura de la heurística
             t = self.update_temp(t)
             if t < self.Tmin:
                 t = self.Tmin
