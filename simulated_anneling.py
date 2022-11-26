@@ -33,7 +33,7 @@ class SimulatedAnneling():
         Actualiza la temperatura de la heurística multiplicandola por alpha 
         @param self: objeto con las variables necesarias para el funcionamiento de la heurística
         @current_temp: temperatura actual de  la heurística   
-        @returns new_temp: nueva temperatura generada
+        @return new_temp: nueva temperatura generada
         """
         new_temp = self.alpha * current_temp
         return new_temp
@@ -44,7 +44,7 @@ class SimulatedAnneling():
         @param self: objeto con las variables necesarias para el funcionamiento de la heurística 
         @param delta_fitness: diferencia entre el mejor fitness y el actual fitness obtenido
         @param current_temp: temperatura actual de la heurística
-        @returns probability: probabilidad de exploración del algoritmo
+        @return probability: probabilidad de exploración del algoritmo
         """
         probability = math.exp(-delta_fitness / current_temp)
         return probability

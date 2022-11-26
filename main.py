@@ -8,7 +8,7 @@ def generate_random_solution(n):
 	"""
 	Funcion encargada de generar una solucion inicial aleatoria de centros abiertos asociados al vector X
 	@param n: número de centros
-	@returns warehouses: vector binario con los centros abiertos
+	@return warehouses: vector binario con los centros abiertos
 	"""
 	warehouses = [0] * n
 	for i in range(n):
@@ -21,7 +21,7 @@ def get_next_step(current_solution):
 	"""
 	Encargada de generar una nueva solución del vector X con los centros abiertos aplicando swap a sus indices
 	@param current_solution: solución actual del problema (X)
-	@returns new_solution: nueva solución del vector X
+	@return new_solution: nueva solución del vector X
 	"""
 	new_solution = current_solution.copy()
 
@@ -43,7 +43,7 @@ def objective_function(warehouses):
 	Encargada de calcular la función objetivo del problema CFLP. Utilizando AMPL para el problema de asignacion
 	y la suma de los costos asociados a abrir los centros.
 	@param warehouse: vector binario con los centros abiertos
-	@returns fitness_cflp_problem: resultado de la funcion objetivo evaluada del CFLP
+	@return fitness_cflp_problem: resultado de la funcion objetivo evaluada del CFLP
 	"""
 	# Se establecen los centro abiertos del problema de asignacion y se resuelve
 	x.set_values(warehouses)

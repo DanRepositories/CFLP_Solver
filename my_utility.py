@@ -1,5 +1,12 @@
 def check_feasibility(x, capacity, demands, relaxed=False):
-	# Comentar
+	"""
+	Encargada de validar la instancia con respecto a la capacidad de los centros y la demanda de los clientes
+	@param x: vector binario con solo valores 1 
+	@param capacity: vector con la capacidad de cada uno de los centros
+	@param demands: vector con las demandas de los clientes
+	@param relaxed: variable boolean que valida si es un problema relajado (True) o no relajado (False)
+	@return Boolean: True si es factible, False si no es factible
+	"""
 	sum_capacities = 0
 	for i, c in enumerate(capacity):
 		sum_capacities = sum_capacities + c * x[i]
@@ -14,6 +21,11 @@ def check_feasibility(x, capacity, demands, relaxed=False):
 		return sum_demands <= sum_capacities and max_demands <= max_capacity
 
 def load_config(filename):
+	"""
+	Encargada de leer la configuracion desde el archivo config.csv y almacenarlos en un diccionario de datos cnf
+	@param filename: nombre del archivo .csv
+	@return cnf: diccionario con los datos de la configuración
+	"""
 	cnf = dict()
 	
 	with open(filename) as file:
