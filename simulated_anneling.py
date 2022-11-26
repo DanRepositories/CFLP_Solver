@@ -53,8 +53,8 @@ class SimulatedAnneling():
         """
         Encargada de ejecutar la heurística simulated annealing
         @param self: objeto con las variables necesarias para el funcionamiento de la heurística
-        @returns self.best y self.F_min: querepresenta al mejor vector X con los centros abiertos y el fitness de la funcion
-        objetivo evaluada con el vector X 
+        @returns self.best y self.F_min: que representa al mejor vector X con los centros abiertos y el fitness de la funcion
+        objetivo evaluada con el vector X respectivamente
         """
         self.X = self.generate_initial_solution(self.D)
         self.Xfitness = self.function(self.X)
