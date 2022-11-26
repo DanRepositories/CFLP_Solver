@@ -31,13 +31,14 @@ class SimulatedAnneling():
         self.best = self.X.copy()
         self.F_min = self.Xfitness
 
+        fitness_array = []
 
         t = self.T0
         current_iter = 0
         while (current_iter < self.max_iter):
             if current_iter%25 == 0: 
                 print("\n", current_iter, self.F_min)
-
+                fitness_array.append(self.F_min)
             # Generate a new solution from the current X solution
             newX = self.next_step(self.X)
             newX_fitness = self.function(newX)
@@ -57,6 +58,8 @@ class SimulatedAnneling():
             if self.Xfitness < self.F_min:
                 self.best = self.X.copy()
                 self.F_min = self.Xfitness
+                #fitness_array.append(self.F_min)
+
 
             t = self.update_temp(t)
             if t < self.Tmin:
@@ -64,6 +67,9 @@ class SimulatedAnneling():
 
             current_iter += 1
 
+        # Guardamos el mejor X y los fitness en .csv
+        np.savetxt("X.csv", np.array(self.best), fmt='%i')
+        np.savetxt("fitness.csv", np.array(fitness_array))
 
         return self.best, self.F_min
 
