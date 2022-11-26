@@ -2,8 +2,7 @@
 instances/
 output_problems/
 config.csv
-fitness.csv
-X.csv
+*.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
