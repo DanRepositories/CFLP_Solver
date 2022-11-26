@@ -61,14 +61,10 @@ class SimulatedAnneling():
         self.best = self.X.copy()
         self.F_min = self.Xfitness
 
-        fitness_array = []
         t = self.T0
         current_iter = 0
 
         while (current_iter < self.max_iter):
-
-            # Se almacena el mejor fitness actual
-            fitness_array.append(self.F_min)
 
             # Se genera una nueva solución a partir de la solución actual
             newX = self.next_step(self.X)
