@@ -66,6 +66,10 @@ class SimulatedAnneling():
 
         while (current_iter < self.max_iter):
 
+            # Se imprime por pantalla parte del proceso del algoritmo 
+            if current_iter%100 == 0: 
+                print("\n\n","Iteración:", current_iter, " Fitness:",self.F_min)
+
             # Se genera una nueva solución a partir de la solución actual
             newX = self.next_step(self.X)
             newX_fitness = self.function(newX)
