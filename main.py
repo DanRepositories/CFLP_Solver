@@ -1,5 +1,7 @@
 from amplpy import AMPL, Environment, DataFrame
 import random
+
+import numpy as np
 from parseProblem import Parser
 from simulated_anneling import SimulatedAnneling
 from my_utility import check_feasibility, load_config
@@ -86,6 +88,7 @@ ampl.read(cnf["ampl_model"])
 # Se leen los datos de la instancia actual
 ampl.read_data(file_parsed)
 x = ampl.get_parameter('X')
+y = ampl.get_variable('y')
 
 t0 = 2000
 tmin = 5
@@ -95,6 +98,9 @@ sa = SimulatedAnneling(objective_function, generate_random_solution, get_next_st
 
 # Se válida la factibilidad del problema
 if check_feasibility([1] * n, Q, D, relaxed=cnf['relaxed']):
-	print('\n',sa.execute())
+	x_best, fit_best = sa.execute()
+	print("\nFitness: ",fit_best)
+	np.savetxt("warehouses.csv", np.array(x_best), fmt="%d")
+	np.savetxt("clients.csv", np.array(y.get_values().to_list()))
 else:
 	print("Problema no factible")
